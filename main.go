@@ -22,6 +22,7 @@ const HELP_STRING string = `Welcome to Todo Cli!
  
  Commands: 
 	 add		Add a todo item. eg: todo-cli add "Welcome to todo cli"
+	 update 	Update an existing todo item eg: todo-cli update  "6d5d3876-8468-4416-82e4-c38ba097edd4" "new updated todo" 
 	 remove		Removes a todo item by passing todo ID. eg: todo-cli remove "6d5d3876-8468-4416-82e4-c38ba097edd4"
 	 list		List All todo items from workspace. eg: todo-cli list
 	 set-path	Set workspace path to add notes. eg: todo-cli set-path "C:\notes"
@@ -79,7 +80,7 @@ func main() {
 			path := os.Args[2]
 			_, err := commands.SetPath(path)
 			if err != nil {
-				fmt.Printf("Error occured: %s", err)
+				fmt.Printf("Error occured: %s\n", err)
 			}
 		} else {
 			fmt.Println(HELP_PATH)
@@ -94,6 +95,25 @@ func main() {
 				fmt.Printf("error occured : %s",err)
 			}
 		}
+	case "update":
+		if len(os.Args) ==2 {
+			fmt.Println("Expecting an argument of Id and Todo to be passed. Run todo-cli help for more information")
+			return
+		}
+		if len(os.Args) ==3 {
+			fmt.Println("Expecting an argument of Todo to be passed. Run todo-cli help for more information")
+			return
+		}
+		if len(os.Args) == 4{
+			todoId:= os.Args[2]
+			todo:= os.Args[3]
+			err:= commands.Update(todoId,todo)
+			if err != nil {
+				fmt.Printf("error occured : %s",err)
+			}
+		}
+	default:
+		fmt.Println("Invalid command run todo-cli help for more information")
 	}
 
 }
