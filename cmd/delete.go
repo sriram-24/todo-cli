@@ -1,15 +1,14 @@
-package commands
+package cmd
 
 import (
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
-	"time"
 	"todo-cli/models"
 )
 
-func Update(id string, todoUpdated string) error  {
+func Delete(id string) error {
 	workspace, err:= GetPath()
 	if err != nil {
 		return err
@@ -36,8 +35,8 @@ func Update(id string, todoUpdated string) error  {
 	
 	for index, todo := range data {
 		if todo.Id.String() == id {
-			data[index].Todo = todoUpdated
-			data[index].ModifiedAt = time.Now().Format("2006-01-02 15:04:05") 
+			fmt.Println("found")
+			data = append(data[:index],data[index+1:]... )	
 			break
 		}
 	}
@@ -56,6 +55,5 @@ func Update(id string, todoUpdated string) error  {
 	}
 
 	return nil
-
 
 }

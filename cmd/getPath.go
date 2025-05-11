@@ -1,5 +1,4 @@
-package commands
-
+package cmd
 import (
 	"encoding/json"
 	"fmt"

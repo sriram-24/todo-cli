@@ -1,4 +1,4 @@
-package commands
+package cmd
 
 import (
 	"encoding/json"
@@ -40,6 +40,6 @@ func Add(todo string) (nil, err error) {
 		return nil, fmt.Errorf("error creating config file: %s", fileerr)
 	}
 
-	fmt.Printf("%s added\n", todo)
+	fmt.Printf("%s added\n", todo) 
 	return nil, nil
 }

@@ -1,14 +1,15 @@
-package commands
+package cmd
 
 import (
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 	"todo-cli/models"
 )
 
-func Delete(id string) error {
+func Update(id string, todoUpdated string) error  {
 	workspace, err:= GetPath()
 	if err != nil {
 		return err
@@ -35,13 +36,12 @@ func Delete(id string) error {
 	
 	for index, todo := range data {
 		if todo.Id.String() == id {
-			fmt.Println("found")
-			data = append(data[:index],data[index+1:]... )	
+			data[index].Todo = todoUpdated
+			data[index].ModifiedAt = time.Now().Format("2006-01-02 15:04:05") 
 			break
 		}
 	}
-	fmt.Println(data)
-	
+		
 	jsonDataToWrite, jsonErrWrite := json.MarshalIndent(data, "", "  ")
 	if jsonErrWrite != nil {
 		return  jsonErrWrite
@@ -53,7 +53,8 @@ func Delete(id string) error {
 	if fileerr != nil {
 		return fmt.Errorf("error creating config file: %s", fileerr)
 	}
-
+	fmt.Printf("%s updated\n",id)
 	return nil
+
 
 }

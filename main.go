@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 	"text/tabwriter"
-	"todo-cli/commands"
+	"todo-cli/cmd"
 )
 
 // declare constants
@@ -47,7 +47,7 @@ func main() {
 		if len(os.Args) == 3 {
 			// reading third argument for Todo and add it.
 			todo := os.Args[2]
-			_, err := commands.Add(todo)
+			_, err := cmd.Add(todo)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -56,7 +56,7 @@ func main() {
 		}
 	case "list":
 		// Returns list of todos
-		todoList, listErr := commands.ListAll()
+		todoList, listErr := cmd.ListAll()
 		if listErr != nil {
 			fmt.Println(listErr)
 		}
@@ -78,7 +78,7 @@ func main() {
 	case "set-path":
 		if len(os.Args) == 3 {
 			path := os.Args[2]
-			_, err := commands.SetPath(path)
+			_, err := cmd.SetPath(path)
 			if err != nil {
 				fmt.Printf("Error occured: %s\n", err)
 			}
@@ -86,11 +86,11 @@ func main() {
 			fmt.Println(HELP_PATH)
 		}
 	case "get-path":
-		fmt.Println(commands.GetPath())
+		fmt.Println(cmd.GetPath())
 	case "delete":
 		if len(os.Args) == 3{
 			todo:= os.Args[2]
-			err:= commands.Delete(todo)
+			err:= cmd.Delete(todo)
 			if err != nil {
 				fmt.Printf("error occured : %s",err)
 			}
@@ -107,7 +107,7 @@ func main() {
 		if len(os.Args) == 4{
 			todoId:= os.Args[2]
 			todo:= os.Args[3]
-			err:= commands.Update(todoId,todo)
+			err:= cmd.Update(todoId,todo)
 			if err != nil {
 				fmt.Printf("error occured : %s",err)
 			}
